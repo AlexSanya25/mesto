@@ -1,7 +1,11 @@
 .element__like {
-    max-width: 22px;
-    max-height: 19px;
+    width: 22px;
+    height: 19px;
+    padding: 0;
+    border: 0;
+    background: none;
     align-self: flex-end;
+    cursor: pointer;
 }
 
 .element__like:hover {

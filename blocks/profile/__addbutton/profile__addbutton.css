@@ -1,6 +1,6 @@
 .profile__addbutton {
-    background: #000;
-    border: 1px solid #ffffff;
+    background: none;
+    border: 2px solid #ffffff;
     width: 150px;
     height: 50px;
     padding: 0;
@@ -9,6 +9,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 2px;
+    cursor: pointer;
 }
 
 .profile__addbutton:hover {

@@ -1,11 +1,11 @@
 .popup__save {
     color: #FFF;
     text-align: center;
-    font-family: Inter;
+    font-family: Inter, Arial, Helvetica, sans-serif;
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
-    line-height: normal;
+    line-height: 22px;
     margin: 0;
     border-radius: 2px;
     background: #000;
@@ -20,6 +20,7 @@
     .popup__save {
         min-height: 46px;
         font-size: 14px;
+        line-height: 17px;
     }
 }
 
