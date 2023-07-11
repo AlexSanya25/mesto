@@ -1,0 +1,22 @@
+.popup__input-item {
+    width: 100%;
+    padding: 0;
+    border: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 11px;
+    margin-bottom: 30px;
+}
+
+.popup__input-item:nth-of-type(2) {
+    margin-bottom: 48px;
+}
+
+.popup__input-item:last-child {
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 680px) {
+    .popup__input-item:nth-of-type(2) {
+        margin-bottom: 45px;
+    }
+}

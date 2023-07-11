@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./pages/index.css">
+    <title>Жак-Ив Кусто</title>
+</head>
+
+<body class="page">
+
+    <div class="root">
+        <header class="header">
+            <img class="header__logo" src="./images/logo-min.svg" alt="место">
+        </header>
+
+        <main>
+            <section class="profile">
+                <img class="profile__avatar" src="./images/image-min.svg" alt="Кусто">
+                <div class="profile__info">
+                    <h1 class="profile__title profile__title_name">Жак-Ив Кусто</h1>
+                    <button class="profile__editbutton profile__editbutton_open-popup">
+                        <img class="profile__editbutton-image" src="./images/Vector.min.svg" alt="редактировать">
+                    </button>
+                    <p class="profile__subtitle profile__subtitle_job">Исследователь океана</p>
+                </div>
+                <button class="profile__addbutton">
+                    <img class="profile__addbutton-image" src="./images/Vector-min.svg" alt="плюсик">
+                </button>
+            </section>
+
+            <section class="elements">
+                <div class="element">
+                    <img class="element__image" src="./images/kirill-pershin-1088404-unsplash.png" alt="карачаевск">
+                    <div class="element__container">
+                        <h2 class="element__title">Карачаевск</h2>
+                        <img class="element__like" src="./images/Group-min.svg" alt="лайк">
+                    </div>
+                </div>
+                <div class="element">
+                    <img class="element__image" src="./images/kirill-pershin-1404681-unsplash.png" alt="эльбрус">
+                    <div class="element__container">
+                        <h2 class="element__title">Гора Эльбрус</h2>
+                        <img class="element__like" src="./images/Group-min.svg" alt="лайк">
+                    </div>
+                </div>
+                <div class="element">
+                    <img class="element__image" src="./images/kirill-pershin-1556355-unsplash.png" alt="домбай">
+                    <div class="element__container">
+                        <h2 class="element__title">Домбай</h2>
+                        <img class="element__like" src="./images/Group-min.svg" alt="лайк">
+                    </div>
+                </div>
+                <div class="element">
+                    <img class="element__image" src="./images/kirill-pershin-1556355-unsplash.png" alt="домбай">
+                    <div class="element__container">
+                        <h2 class="element__title">Домбай</h2>
+                        <img class="element__like" src="./images/Group-min.svg" alt="лайк">
+                    </div>
+                </div>
+                <div class="element">
+                    <img class="element__image" src="./images/kirill-pershin-1404681-unsplash.png" alt="эльбрус">
+                    <div class="element__container">
+                        <h2 class="element__title">Гора Эльбрус</h2>
+                        <img class="element__like" src="./images/Group-min.svg" alt="лайк">
+                    </div>
+                </div>
+                <div class="element">
+                    <img class="element__image" src="./images/kirill-pershin-1088404-unsplash.png" alt="карачаевск">
+                    <div class="element__container">
+                        <h2 class="element__title">Карачаевск</h2>
+                        <img class="element__like" src="./images/Group-min.svg" alt="лайк">
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p class="footer__copyright">&copy; 2023 Александр Гаврик</p>
+        </footer>
+
+        <section class="popup">
+            <div class="popup__container">
+                <img src="./images/CloseIcon.png" alt="закрыть" class="popup__close">
+                <div class="popup__form">
+                    <h2 class="popup__form-title">Редактировать профиль</h2>
+                    <form class="popup__input-container">
+                        <input type="text" class="popup__input-item popup__input-name">
+                        <input type="text" class="popup__input-item popup__input-job">
+                        <button type="submit" class="popup__save">Сохранить</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script type="text/javascript" src="./scripts/index.js"></script>
+</body>
+
+</html>
