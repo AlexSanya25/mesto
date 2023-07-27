@@ -82,11 +82,20 @@ const createElByTemplate = (data) => {
     const img = el.querySelector('.element__image');
     img.src = data.link;
 
+    const deleteButton = el.querySelector('.element__delete');
+    deleteButton.addEventListener('click', deleteEl);
+
     return el;
 };
 
-render();
 
+const deleteEl = (evt) => {
+  const el = evt.target.closest('.element');
+  el.remove();
+}
+ 
+
+render();
 
 
 
@@ -125,14 +134,13 @@ function handleFormSubmitAdd (evt) {
     evt.preventDefault(); 
     let titleValue = titleInput.value;
     let linkValue = linkInput.value;
-    title.textContent = titleValue;
-    link.src = linkValue;
-    popupAddClose();
+    container.prepend(createElByTemplate({name: titleInput.value, link: linkInput.value}));
 
+    popupAddClose();
+    evt.target.reset();
 }
 
 formElementAdd.addEventListener('submit', handleFormSubmitAdd);
-
 
 
 
