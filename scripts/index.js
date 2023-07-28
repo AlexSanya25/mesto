@@ -1,22 +1,21 @@
-const popup = document.querySelector('.popup');
-const popupOpenButton = document.querySelector('.profile__editbutton');
-const popupCloseButton = popup.querySelector('.popup__close');
-const formElement = document.querySelector('.popup__input-container');
-
+const popupProfile = document.querySelector('.popup_profile');
+const popupOpenButtonProfile = document.querySelector('.profile__editbutton');
+const popupCloseButtonProfile = popupProfile.querySelector('.popup__close');
+const formElementProfile = popupProfile.querySelector('.popup__input-container_type_profile');
 
 let name = document.querySelector('.profile__title');
 let job = document.querySelector('.profile__subtitle');
-let nameInput = popup.querySelector('.popup__input-item_type_name');
-let jobInput = popup.querySelector('.popup__input-item_type_job');
+let nameInput = popupProfile.querySelector('.popup__input-item_type_name');
+let jobInput = popupProfile.querySelector('.popup__input-item_type_job');
 
-const popupToggle = function () {
-    popup.classList.toggle('popup_opened');
+const openPopupProfile = function () {
+    popupProfile.classList.add('popup_opened');
     nameInput.value = name.textContent;
     jobInput.value = job.textContent;
 }
 
-const popupClose = function () {
-    popup.classList.toggle('popup_opened');
+const closePopupProfile = function () {
+    popupProfile.classList.remove('popup_opened');
 }
 
 function handleFormSubmit(evt) {
@@ -25,12 +24,12 @@ function handleFormSubmit(evt) {
     let jobValue = jobInput.value;
     name.textContent = nameValue;
     job.textContent = jobValue;
-    popupClose();
+    closePopupProfile();
 }
 
-popupOpenButton.addEventListener('click', popupToggle);
-popupCloseButton.addEventListener('click', popupClose);
-formElement.addEventListener('submit', handleFormSubmit);
+popupOpenButtonProfile.addEventListener('click', openPopupProfile);
+popupCloseButtonProfile.addEventListener('click', closePopupProfile);
+formElementProfile.addEventListener('submit', handleFormSubmit);
 
 
 
@@ -70,11 +69,18 @@ const initialCards = [
 const container = document.querySelector('.elements');
 const template = document.querySelector('.cards');
 
-const render = () => {
+
+
+
+const popupPhoto = document.querySelector('.popup_photo');
+
+
+const renderCards = () => {
     initialCards.forEach((item) => {
        container.append(createElByTemplate(item));
     });
 };
+
 
 
 const createElByTemplate = (data) => {
@@ -83,6 +89,7 @@ const createElByTemplate = (data) => {
     h2.textContent = data.name;
     const img = el.querySelector('.element__image');
     img.src = data.link;
+    img.alt = data.name;
 
     const deleteButton = el.querySelector('.element__delete');
     deleteButton.addEventListener('click', deleteEl);
@@ -91,30 +98,25 @@ const createElByTemplate = (data) => {
     likeButton.addEventListener('click', likeEl);
 
 
-    const popupPhoto = document.querySelector('.popup_photo');
-    const popupOpenBtn = el.querySelector('.element__image');
-    const popupCloseBtn = popupPhoto.querySelector('.popup__close_type_photo');
+    
+    const popupOpenButtonPhoto = el.querySelector('.element__image');
     const popupPhotoImage = popupPhoto.querySelector('.popup__photo-image');
     const popupPhotoText = popupPhoto.querySelector('.popup__photo-text');
     
     
-    const popupPhotoToggle = function () {
-        popupPhoto.classList.toggle('popup_opened');
+    const openPopupPhoto = function () {
+        popupPhoto.classList.add('popup_opened');
         popupPhotoText.textContent = data.name;
         popupPhotoImage.src = data.link;
+        popupPhotoImage.alt = data.name;
     }
 
-    popupOpenBtn.addEventListener('click', popupPhotoToggle);
+    popupOpenButtonPhoto.addEventListener('click', openPopupPhoto);
     
-    const popupPhotoClose = function () {
-        popupPhoto.classList.remove('popup_opened');
-    }
-
-    popupCloseBtn.addEventListener('click', popupPhotoClose);
+    
 
     return el;
 };
-
 
 
 const deleteEl = (evt) => {
@@ -126,28 +128,36 @@ const likeEl = (evt) => {
   evt.target.classList.toggle('element__like_active');
 }
 
-render();
+renderCards();
 
 
 
+
+const popupCloseButtonPhoto = popupPhoto.querySelector('.popup__close_type_photo');
+
+const closePopupPhoto = function () {
+  popupPhoto.classList.remove('popup_opened');
+}
+
+popupCloseButtonPhoto.addEventListener('click', closePopupPhoto);
 
 
 
 
 const popupAdd = document.querySelector('.popup_add');
-const popupOpenedButton = document.querySelector('.profile__addbutton');
-const popupClosedButton = popupAdd.querySelector('.popup__close_type_add');
+const popupOpenButtonAdd = document.querySelector('.profile__addbutton');
+const popupCloseButtonAdd = popupAdd.querySelector('.popup__close_type_add');
 
-const popupAddToggle = function () {
-    popupAdd.classList.toggle('popup_opened');
+const openPopupAdd = function () {
+    popupAdd.classList.add('popup_opened');
 }
-popupOpenedButton.addEventListener('click', popupAddToggle);
+popupOpenButtonAdd.addEventListener('click', openPopupAdd);
 
 
-const popupAddClose = function () {
-    popupAdd.classList.toggle('popup_opened');
+const closePopupAdd = function () {
+    popupAdd.classList.remove('popup_opened');
 }
-popupClosedButton.addEventListener('click', popupAddClose);
+popupCloseButtonAdd.addEventListener('click', closePopupAdd);
 
 
 
@@ -158,22 +168,21 @@ popupClosedButton.addEventListener('click', popupAddClose);
 
 
 
-const formElementAdd = document.querySelector('.popup__container_type_add');
+const formElementAdd = document.querySelector('.popup__input-container_type_add');
 
 
 let title = document.querySelector('.element__title');
 let link = document.querySelector('.element__image');
-let titleInput = document.querySelector('.popup__input-item_type_title');
-let linkInput = document.querySelector('.popup__input-item_type_link');
+const titleInput = document.querySelector('.popup__input-item_type_title');
+const linkInput = document.querySelector('.popup__input-item_type_link');
 
 
 function handleFormSubmitAdd (evt) {
     evt.preventDefault(); 
-    let titleValue = titleInput.value;
-    let linkValue = linkInput.value;
+    
     container.prepend(createElByTemplate({name: titleInput.value, link: linkInput.value}));
 
-    popupAddClose();
+    closePopupAdd();
     evt.target.reset();
 }
 

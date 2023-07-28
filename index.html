@@ -108,14 +108,14 @@
         </template>
 
 
-        <section class="popup">
+        <section class="popup popup_profile">
             <div class="popup__container">
                 <button type="button" class="popup__close">
                     <img src="./images/CloseIcon-min.svg" alt="закрыть" class="popup__close-image">
                 </button>
                 <div class="popup__form">
                     <h2 class="popup__form-title">Редактировать профиль</h2>
-                    <form class="popup__input-container" name="попап">
+                    <form class="popup__input-container popup__input-container_type_profile" name="попап">
                         <input type="text" class="popup__input-item popup__input-item_type_name" name="имя">
                         <input type="text" class="popup__input-item popup__input-item_type_job" name="профессия">
                         <button type="submit" class="popup__save">Сохранить</button>
@@ -125,13 +125,13 @@
         </section>
 
         <section class="popup popup_add">
-            <div class="popup__container popup__container_type_add">
+            <div class="popup__container">
                 <button type="button" class="popup__close popup__close_type_add">
                     <img src="./images/CloseIcon-min.svg" alt="закрыть" class="popup__close-image">
                 </button>
                 <div class="popup__form">
                     <h2 class="popup__form-title">Новое место</h2>
-                    <form class="popup__input-container" name="попап">
+                    <form class="popup__input-container popup__input-container_type_add" name="попап">
                         <input type="text" class="popup__input-item popup__input-item_type_title" name="название"
                             placeholder="Название">
                         <input type="text" class="popup__input-item popup__input-item_type_link"
