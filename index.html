@@ -94,13 +94,13 @@
 
         <template class="cards">
             <div class="element">
-                <img class="element__image" src="" alt="эльбрус">
+                <img class="element__image" src="" alt="картинка">
                 <button type="button" class="element__delete">
                     <img class="element__delete-image" src="./images/Trash-min.svg" alt="удалить">
                 </button>
                 <div class="element__container">
                     <h2 class="element__title"></h2>
-                    <button type="button" class="element__like element__like_active">
+                    <button type="button" class="element__like">
                         <img class="element__like-image" src="./images/Group-min.svg" alt="лайк">
                     </button>
                 </div>
@@ -139,6 +139,16 @@
                         <button type="submit" class="popup__save">Сохранить</button>
                     </form>
                 </div>
+            </div>
+        </section>
+
+        <section class="popup popup_photo">
+            <div class="popup__photo-container">
+                <button type="button" class="popup__close popup__close_type_photo">
+                    <img src="./images/CloseIcon-min.svg" alt="закрыть" class="popup__close-image">
+                </button>
+                <img class="popup__photo-image" alt="фото" src=".">
+                <p class="popup__photo-text"></p>
             </div>
         </section>
 

@@ -38,6 +38,8 @@ formElement.addEventListener('submit', handleFormSubmit);
 
 
 
+
+
 const initialCards = [
     {
       name: 'Архыз',
@@ -85,8 +87,34 @@ const createElByTemplate = (data) => {
     const deleteButton = el.querySelector('.element__delete');
     deleteButton.addEventListener('click', deleteEl);
 
+    const likeButton = el.querySelector('.element__like');
+    likeButton.addEventListener('click', likeEl);
+
+
+    const popupPhoto = document.querySelector('.popup_photo');
+    const popupOpenBtn = el.querySelector('.element__image');
+    const popupCloseBtn = popupPhoto.querySelector('.popup__close_type_photo');
+    const popupPhotoImage = popupPhoto.querySelector('.popup__photo-image');
+    const popupPhotoText = popupPhoto.querySelector('.popup__photo-text');
+    
+    
+    const popupPhotoToggle = function () {
+        popupPhoto.classList.toggle('popup_opened');
+        popupPhotoText.textContent = data.name;
+        popupPhotoImage.src = data.link;
+    }
+
+    popupOpenBtn.addEventListener('click', popupPhotoToggle);
+    
+    const popupPhotoClose = function () {
+        popupPhoto.classList.remove('popup_opened');
+    }
+
+    popupCloseBtn.addEventListener('click', popupPhotoClose);
+
     return el;
 };
+
 
 
 const deleteEl = (evt) => {
@@ -94,8 +122,14 @@ const deleteEl = (evt) => {
   el.remove();
 }
  
+const likeEl = (evt) => {
+  evt.target.classList.toggle('element__like_active');
+}
 
 render();
+
+
+
 
 
 
@@ -114,6 +148,9 @@ const popupAddClose = function () {
     popupAdd.classList.toggle('popup_opened');
 }
 popupClosedButton.addEventListener('click', popupAddClose);
+
+
+
 
 
 
