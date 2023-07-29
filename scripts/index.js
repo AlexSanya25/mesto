@@ -5,17 +5,27 @@ const formElementProfile = popupProfile.querySelector('.popup__input-container_t
 
 let name = document.querySelector('.profile__title');
 let job = document.querySelector('.profile__subtitle');
-let nameInput = popupProfile.querySelector('.popup__input-item_type_name');
-let jobInput = popupProfile.querySelector('.popup__input-item_type_job');
+const nameInput = popupProfile.querySelector('.popup__input-item_type_name');
+const jobInput = popupProfile.querySelector('.popup__input-item_type_job');
+
+
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+}
+
+
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+}
 
 const openPopupProfile = function () {
-    popupProfile.classList.add('popup_opened');
+    openPopup(popupProfile);
     nameInput.value = name.textContent;
     jobInput.value = job.textContent;
 }
 
 const closePopupProfile = function () {
-    popupProfile.classList.remove('popup_opened');
+  closePopup(popupProfile);
 }
 
 function handleFormSubmit(evt) {
@@ -73,6 +83,9 @@ const template = document.querySelector('.cards');
 
 
 const popupPhoto = document.querySelector('.popup_photo');
+const popupPhotoImage = popupPhoto.querySelector('.popup__photo-image');
+const popupPhotoText = popupPhoto.querySelector('.popup__photo-text');
+
 
 
 const renderCards = () => {
@@ -100,12 +113,11 @@ const createElByTemplate = (data) => {
 
     
     const popupOpenButtonPhoto = el.querySelector('.element__image');
-    const popupPhotoImage = popupPhoto.querySelector('.popup__photo-image');
-    const popupPhotoText = popupPhoto.querySelector('.popup__photo-text');
+    
     
     
     const openPopupPhoto = function () {
-        popupPhoto.classList.add('popup_opened');
+        openPopup(popupPhoto);
         popupPhotoText.textContent = data.name;
         popupPhotoImage.src = data.link;
         popupPhotoImage.alt = data.name;
@@ -136,7 +148,7 @@ renderCards();
 const popupCloseButtonPhoto = popupPhoto.querySelector('.popup__close_type_photo');
 
 const closePopupPhoto = function () {
-  popupPhoto.classList.remove('popup_opened');
+  closePopup(popupPhoto);
 }
 
 popupCloseButtonPhoto.addEventListener('click', closePopupPhoto);
@@ -149,13 +161,13 @@ const popupOpenButtonAdd = document.querySelector('.profile__addbutton');
 const popupCloseButtonAdd = popupAdd.querySelector('.popup__close_type_add');
 
 const openPopupAdd = function () {
-    popupAdd.classList.add('popup_opened');
+    openPopup(popupAdd);
 }
 popupOpenButtonAdd.addEventListener('click', openPopupAdd);
 
 
 const closePopupAdd = function () {
-    popupAdd.classList.remove('popup_opened');
+    closePopup(popupAdd);
 }
 popupCloseButtonAdd.addEventListener('click', closePopupAdd);
 
@@ -171,8 +183,8 @@ popupCloseButtonAdd.addEventListener('click', closePopupAdd);
 const formElementAdd = document.querySelector('.popup__input-container_type_add');
 
 
-let title = document.querySelector('.element__title');
-let link = document.querySelector('.element__image');
+const title = document.querySelector('.element__title');
+const link = document.querySelector('.element__image');
 const titleInput = document.querySelector('.popup__input-item_type_title');
 const linkInput = document.querySelector('.popup__input-item_type_link');
 
