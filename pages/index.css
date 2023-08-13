@@ -35,3 +35,45 @@
 @import url(../blocks/popup/__photo-container/popup__photo-container.css);
 @import url(../blocks/popup/__photo-image/popup__photo-image.css);
 @import url(../blocks/popup/__photo-text/popup__photo-text.css);
+
+
+
+
+
+.error {
+    color: #F00;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    width: 100%;
+    min-height: 30px;
+}
+
+
+.popup__save_disabled {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    color: rgba(0, 0, 0, 0.2);
+    background: #FFF;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    margin: 0;
+    border-radius: 2px;
+    width: 100%;
+    min-height: 50px;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 13px;
+}
+
+@media screen and (max-width: 680px) {
+    .popup__save_disabled {
+        min-height: 46px;
+        font-size: 14px;
+        line-height: 17px;
+    }
+}
