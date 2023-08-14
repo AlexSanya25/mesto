@@ -1,3 +1,6 @@
+
+const form = document.querySelector('.popup__input-container');
+const input = form.querySelector('.popup__input-item');
 const popupProfile = document.querySelector('.popup_profile');
 const popupOpenButtonProfile = document.querySelector('.profile__editbutton');
 const popupCloseButtonProfile = popupProfile.querySelector('.popup__close');
@@ -22,8 +25,6 @@ const openPopupProfile = function () {
   openPopup(popupProfile);
   nameInput.value = name.textContent;
   jobInput.value = job.textContent;
-  submitButton.classList.add('popup__save');
-  submitButton.classList.remove('popup__save_disabled');
 }
 
 const closePopupProfile = function () {
@@ -31,9 +32,19 @@ const closePopupProfile = function () {
 }
 
 
+function handleFormSubmit(evt) {
+  evt.preventDefault();
+  let nameValue = nameInput.value;
+  let jobValue = jobInput.value;
+  name.textContent = nameValue;
+  job.textContent = jobValue;
+  closePopupProfile();
+};
+
 
 popupOpenButtonProfile.addEventListener('click', openPopupProfile);
 popupCloseButtonProfile.addEventListener('click', closePopupProfile);
+formElementProfile.addEventListener('submit', handleFormSubmit);
 
 
 
@@ -177,6 +188,7 @@ popupCloseButtonAdd.addEventListener('click', closePopupAdd);
 const formElementAdd = document.querySelector('.popup__input-container_type_add');
 
 
+
 const title = document.querySelector('.element__title');
 const link = document.querySelector('.element__image');
 const titleInput = document.querySelector('.popup__input-item_type_title');
@@ -185,11 +197,8 @@ const linkInput = document.querySelector('.popup__input-item_type_link');
 
 function handleFormSubmitAdd(evt) {
   evt.preventDefault();
-
   container.prepend(createElByTemplate({ name: titleInput.value, link: linkInput.value }));
-
   closePopupAdd();
-  evt.target.reset();
 }
 
 formElementAdd.addEventListener('submit', handleFormSubmitAdd);
@@ -225,6 +234,7 @@ const overlayClosePopup = function (evt) {
     closePopup(popupPhoto);
   };
 };
+
 
 popupProfile.addEventListener('click', overlayClosePopup);
 popupAdd.addEventListener('click', overlayClosePopup);

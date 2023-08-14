@@ -1,74 +1,134 @@
-// инпуты и форма уже есть
-
-const submitButton = document.querySelector('.popup__save');
 
 
+const submitButtonProfile = formElementProfile.querySelector('.popup__save_type_profile');
+const submitButtonAdd = formElementAdd.querySelector('.popup__save_type_add');
 
-//слушатель должен проверить каждый инпут на валидность и
-//если есть ошибки, то вставить ошибку в спан
 
-const setSubmitButtonState = (isActive) => {
+const setSubmitButtonStateProfile = (isActive) => {
+
     if (isActive) {
-        submitButton.classList.add('popup__save');
-        submitButton.classList.remove('popup__save_disabled');
+        submitButtonProfile.removeAttribute('disabled');
+        submitButtonProfile.classList.add('popup__save_active');
+        submitButtonProfile.classList.remove('popup__save_disabled');
     } else {
-        submitButton.classList.add('popup__save_disabled');
-        submitButton.classList.remove('popup__save');
-    }
-}
+        submitButtonProfile.setAttribute('disabled', true);
+        submitButtonProfile.classList.add('popup__save_disabled');
+        submitButtonProfile.classList.remove('popup__save_active');
+    };
+};
+
+const setSubmitButtonStateAdd = (isActive) => {
+
+    if (isActive) {
+        submitButtonAdd.removeAttribute('disabled');
+        submitButtonAdd.classList.add('popup__save_active');
+        submitButtonAdd.classList.remove('popup__save_disabled');
+    } else {
+        submitButtonAdd.setAttribute('disabled', true);
+        submitButtonAdd.classList.add('popup__save_disabled');
+        submitButtonAdd.classList.remove('popup__save_active');
+    };
+};
 
 
+//валидация инпутов
 
 const validateInput = (inputElement) => {
-    var errorElement = document.querySelector(`#${inputElement.id}-error`)
+    const errorElement = document.querySelector(`#${inputElement.id}-error`);
     if (inputElement.checkValidity()) {
         errorElement.textContent = "";
     } else {
         errorElement.textContent = inputElement.validationMessage;
     };
 
-    // дизэйблить кнопку
-    if (formElementProfile.checkValidity()) {
-        setSubmitButtonState(true)
-    } else {
-        setSubmitButtonState(false)
-    }
 
+    //дизэйбл кнопки профайл
+    if (formElementProfile.checkValidity()) {
+        setSubmitButtonStateProfile(true)
+    } else {
+        setSubmitButtonStateProfile(false)
+    };
+
+    //дизэйбл кнопки эдд
+    if (formElementAdd.checkValidity()) {
+        setSubmitButtonStateAdd(true)
+    } else {
+        setSubmitButtonStateAdd(false)
+    };
 };
 
 
-const validateForm = (event) => {
+
+
+
+// валидация формы
+
+const validateFormProfile = (event) => {
     event.preventDefault();
+
+    if (formElementProfile.checkValidity()) {
+        console.log('valid');
+    } else {
+        console.log('not valid');
+    };
 
     validateInput(nameInput);
     validateInput(jobInput);
 
-    if (formElementProfile.checkValidity()) {
+};
+
+formElementProfile.addEventListener('submit', validateFormProfile);
+
+
+
+const validateFormAdd = (event) => {
+    event.preventDefault();
+
+
+    if (formElementAdd.checkValidity()) {
         console.log('valid');
-        let nameValue = nameInput.value;
-        let jobValue = jobInput.value;
-        name.textContent = nameValue;
-        job.textContent = jobValue;
-        closePopupProfile();
+        formElementAdd.reset();
     } else {
         console.log('not valid');
-    }
+
+    };
+
+    validateInput(titleInput);
+    validateInput(linkInput);
 
 };
 
+formElementAdd.addEventListener('submit', validateFormAdd);
+
+
+
+
+
+
+
+// валидация по вводу в инпут
 
 const validateFormOnInput = (event) => {
     validateInput(event.target);
-}
+};
+
+formElementProfile.addEventListener('input', validateFormOnInput);
+formElementAdd.addEventListener('input', validateFormOnInput);
 
 
 
 
-// повесить слушатель на сабмит формы
-formElementProfile.addEventListener('submit', validateForm);
 
-// повесить слушатель на ввод в инпут вилд
-formElementProfile.addEventListener('input', validateFormOnInput)
+const setEventListeners = () => {
+    const inputs = Array.from(form.querySelectorAll('.popup__input-item'));
+    inputs.forEach((input) => {
+        input.addEventListener('input', function() {
+            
+        });  
+    });
+};
+
+
 
 
 

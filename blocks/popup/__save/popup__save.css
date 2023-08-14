@@ -1,5 +1,5 @@
 .popup__save {
-    color: #FFF;
+    
     text-align: center;
     font-family: Inter, Arial, Helvetica, sans-serif;
     font-size: 18px;
@@ -8,8 +8,6 @@
     line-height: 22px;
     margin: 0;
     border-radius: 2px;
-    background: #000;
-    border: 0;
     width: 100%;
     min-height: 50px;
     cursor: pointer;

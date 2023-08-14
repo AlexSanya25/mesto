@@ -123,7 +123,7 @@
                         <input type="text" class="popup__input-item popup__input-item_type_job" name="профессия" id="job"  minlength="2" maxlength="200" required>
                         <span id="job-error" class="error"></span>
                         
-                        <button type="submit" class="popup__save popup__save_disabled">Сохранить</button>
+                        <button type="submit" class="popup__save popup__save_type_profile popup__save_active" disabled>Сохранить</button>
                     </form>
                 </div>
             </div>
@@ -136,15 +136,15 @@
                 </button>
                 <div class="popup__form">
                     <h2 class="popup__form-title">Новое место</h2>
-                    <form class="popup__input-container popup__input-container_type_add" name="попап">
+                    <form class="popup__input-container popup__input-container_type_add" name="попапчик" novalidate>
 
                         <input type="text" class="popup__input-item popup__input-item_type_title" name="название" id="title" minlength="2" maxlength="30" placeholder="Название" required>
                         <span id="title-error" class="error"></span>
 
                         <input type="url" class="popup__input-item popup__input-item_type_link" name="ссылка на картинку" id="link" placeholder="Ссылка на картинку" required>
-                        <span id="link-error" class="error"></span>
+                        <span id="link-error" class="error"></span> 
 
-                        <button type="submit" class="popup__save">Сохранить</button>
+                        <button type="submit" class="popup__save popup__save_type_add popup__save_active popup__save_disabled" disabled>Сохранить</button>
                     </form>
                 </div>
             </div>
