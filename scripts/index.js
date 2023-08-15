@@ -1,10 +1,12 @@
-
 const form = document.querySelector('.popup__input-container');
 const input = form.querySelector('.popup__input-item');
 const popupProfile = document.querySelector('.popup_profile');
 const popupOpenButtonProfile = document.querySelector('.profile__editbutton');
 const popupCloseButtonProfile = popupProfile.querySelector('.popup__close');
 const formElementProfile = popupProfile.querySelector('.popup__input-container_type_profile');
+const submitButton = document.querySelector('.popup__save');
+
+
 
 let name = document.querySelector('.profile__title');
 let job = document.querySelector('.profile__subtitle');
@@ -198,6 +200,7 @@ const linkInput = document.querySelector('.popup__input-item_type_link');
 function handleFormSubmitAdd(evt) {
   evt.preventDefault();
   container.prepend(createElByTemplate({ name: titleInput.value, link: linkInput.value }));
+  formElementAdd.reset();
   closePopupAdd();
 }
 
@@ -239,7 +242,3 @@ const overlayClosePopup = function (evt) {
 popupProfile.addEventListener('click', overlayClosePopup);
 popupAdd.addEventListener('click', overlayClosePopup);
 popupPhoto.addEventListener('click', overlayClosePopup);
-
-
-
-
