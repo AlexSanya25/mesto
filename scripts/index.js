@@ -1,26 +1,25 @@
-const form = document.querySelector('.popup__input-container');
-const input = form.querySelector('.popup__input-item');
 const popupProfile = document.querySelector('.popup_profile');
 const popupOpenButtonProfile = document.querySelector('.profile__editbutton');
 const popupCloseButtonProfile = popupProfile.querySelector('.popup__close');
 const formElementProfile = popupProfile.querySelector('.popup__input-container_type_profile');
-const submitButton = document.querySelector('.popup__save');
 
 
 
-let name = document.querySelector('.profile__title');
-let job = document.querySelector('.profile__subtitle');
+const name = document.querySelector('.profile__title');
+const job = document.querySelector('.profile__subtitle');
 const nameInput = popupProfile.querySelector('.popup__input-item_type_name');
 const jobInput = popupProfile.querySelector('.popup__input-item_type_job');
 
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', escClosePopup);
 }
 
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', escClosePopup);
 }
 
 const openPopupProfile = function () {
@@ -36,8 +35,8 @@ const closePopupProfile = function () {
 
 function handleFormSubmit(evt) {
   evt.preventDefault();
-  let nameValue = nameInput.value;
-  let jobValue = jobInput.value;
+  const nameValue = nameInput.value;
+  const jobValue = jobInput.value;
   name.textContent = nameValue;
   job.textContent = jobValue;
   closePopupProfile();
@@ -105,8 +104,8 @@ const renderCards = () => {
 
 const createElByTemplate = (data) => {
   const el = template.content.cloneNode(true);
-  const h2 = el.querySelector('.element__title');
-  h2.textContent = data.name;
+  const elTitle = el.querySelector('.element__title');
+  elTitle.textContent = data.name;
   const img = el.querySelector('.element__image');
   img.src = data.link;
   img.alt = data.name;
@@ -119,7 +118,7 @@ const createElByTemplate = (data) => {
 
 
 
-  const popupOpenButtonPhoto = el.querySelector('.element__image');
+ 
 
 
 
@@ -130,7 +129,7 @@ const createElByTemplate = (data) => {
     popupPhotoImage.alt = data.name;
   }
 
-  popupOpenButtonPhoto.addEventListener('click', openPopupPhoto);
+  img.addEventListener('click', openPopupPhoto);
 
 
 
@@ -201,6 +200,8 @@ function handleFormSubmitAdd(evt) {
   evt.preventDefault();
   container.prepend(createElByTemplate({ name: titleInput.value, link: linkInput.value }));
   formElementAdd.reset();
+  evt.submitter.classList.add('popup__save_disabled')
+  evt.submitter.disabled = true;
   closePopupAdd();
 }
 
@@ -211,19 +212,16 @@ formElementAdd.addEventListener('submit', handleFormSubmitAdd);
 
 
 
-// закрытие кликом на escape
 
-const escClosePopup = function (evt) {
+
+function escClosePopup(evt) {
   if (evt.key === 'Escape') {
-    closePopup(popupProfile);
-    closePopup(popupAdd);
-    closePopup(popupPhoto);
-  };
-};
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup); 
+  }
+} 
 
 
-
-document.addEventListener('keydown', escClosePopup);
 
 
 
@@ -232,9 +230,7 @@ document.addEventListener('keydown', escClosePopup);
 
 const overlayClosePopup = function (evt) {
   if (evt.currentTarget === evt.target) {
-    closePopup(popupProfile);
-    closePopup(popupAdd);
-    closePopup(popupPhoto);
+    closePopup(evt.target);
   };
 };
 
