@@ -8,7 +8,7 @@ export class FormValidator {
         this._formElement = formElement;
         this._inputs = Array.from(this._formElement.querySelectorAll(this._inputSelector));
         this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
-       
+
     }
 
     _setSubmitButtonState() {
@@ -16,29 +16,30 @@ export class FormValidator {
         if (this._formElement.checkValidity()) {
             this._buttonElement.classList.remove(this._inactiveButtonClass);
             this._buttonElement.removeAttribute('disabled');
-    
         } else {
-            this._buttonElement.classList.add(this._inactiveButtonClass);
-            this._buttonElement.setAttribute('disabled', true);
+            this.submitButtonDisabled();
         };
     };
 
-
+    submitButtonDisabled() {
+        this._buttonElement.classList.add(this._inactiveButtonClass);
+        this._buttonElement.setAttribute('disabled', true);
+    };
 
     _showInputError(inputElement) {
         const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
         errorElement.textContent = inputElement.validationMessage;
         inputElement.classList.add(this._inputErrorClass);
-    
+
     };
-    
+
     _hideInputError(inputElement) {
         const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
         inputElement.classList.remove(this._inputErrorClass);
         errorElement.textContent = "";
     };
-    
-    
+
+
     _checkInputValidity(inputElement) {
         if (!inputElement.validity.valid) {
             this._showInputError(inputElement);
@@ -46,31 +47,32 @@ export class FormValidator {
             this._hideInputError(inputElement);
         }
     };
-    
-    
+
+
     _setEventListeners() {
+
         this._inputs.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
                 this._checkInputValidity(inputElement);
                 this._setSubmitButtonState();
-               
+
             });
-           
+
         });
     };
-    
-    
+
+
     enableValidation() {
         this._setEventListeners();
     };
 
-};   
+};
 
 
 
 
 
-    
+
 
 
 

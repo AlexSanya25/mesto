@@ -70,7 +70,7 @@ const closePopupProfile = function () {
 }
 
 
-function handleFormSubmit(evt) {
+function handleFormSubmitProfile(evt) {
   evt.preventDefault();
   const nameValue = nameInput.value;
   const jobValue = jobInput.value;
@@ -82,7 +82,7 @@ function handleFormSubmit(evt) {
 
 popupOpenButtonProfile.addEventListener('click', openPopupProfile);
 popupCloseButtonProfile.addEventListener('click', closePopupProfile);
-formElementProfile.addEventListener('submit', handleFormSubmit);
+formElementProfile.addEventListener('submit', handleFormSubmitProfile);
 
 
 
@@ -253,8 +253,7 @@ function handleFormSubmitAdd(evt) {
   const cardElement = card.generateCard();
   document.querySelector('.elements').prepend(cardElement);
   formElementAdd.reset();
-  evt.submitter.classList.add('popup__save_disabled')
-  evt.submitter.disabled = true;
+  validatorFormAdd.submitButtonDisabled();
   closePopupAdd();
 }
 
