@@ -1,3 +1,40 @@
+import {FormValidator} from './FormValidator.js';
+import {Card} from './Card.js'
+
+
+const validationConfig = {
+  formSelector: '.popup__input-container',
+  inputSelector: '.popup__input-item',
+  submitButtonSelector: '.popup__save',
+  inactiveButtonClass: 'popup__save_disabled',
+  inputErrorClass: 'popup__input-item_error'
+};
+
+
+
+
+const formProfile = document.querySelector('.popup__input-container_type_profile');
+const formAdd = document.querySelector('.popup__input-container_type_add');
+
+
+// зкземпляр формы профиля
+
+const validatorFormProfile = new FormValidator(validationConfig, formProfile);
+validatorFormProfile.enableValidation();
+
+// зкземпляр формы создания карточки
+
+const validatorFormAdd = new FormValidator(validationConfig, formAdd);
+validatorFormAdd.enableValidation();
+
+
+
+
+
+
+
+
+
 const popupProfile = document.querySelector('.popup_profile');
 const popupOpenButtonProfile = document.querySelector('.profile__editbutton');
 const popupCloseButtonProfile = popupProfile.querySelector('.popup__close');
@@ -11,7 +48,7 @@ const nameInput = popupProfile.querySelector('.popup__input-item_type_name');
 const jobInput = popupProfile.querySelector('.popup__input-item_type_job');
 
 
-function openPopup(popup) {
+export function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', escClosePopup);
 }
@@ -82,18 +119,33 @@ const initialCards = [
   }
 ];
 
-const container = document.querySelector('.elements');
-const template = document.querySelector('.cards');
 
 
 
 
-const popupPhoto = document.querySelector('.popup_photo');
-const popupPhotoImage = popupPhoto.querySelector('.popup__photo-image');
-const popupPhotoText = popupPhoto.querySelector('.popup__photo-text');
+export const popupPhoto = document.querySelector('.popup_photo');
+export const popupPhotoImage = popupPhoto.querySelector('.popup__photo-image');
+export const popupPhotoText = popupPhoto.querySelector('.popup__photo-text');
 
 
 
+
+
+
+// экземпляр класса card
+
+initialCards.forEach((item) => {
+  const card = new Card(item, '.cards');
+  const cardElement = card.generateCard();
+
+  // Добавляем в DOM
+  document.querySelector('.elements').append(cardElement);
+});
+
+
+
+
+/*
 const renderCards = () => {
   initialCards.forEach((item) => {
     container.append(createElByTemplate(item));
@@ -117,11 +169,6 @@ const createElByTemplate = (data) => {
   likeButton.addEventListener('click', likeEl);
 
 
-
- 
-
-
-
   const openPopupPhoto = function () {
     openPopup(popupPhoto);
     popupPhotoText.textContent = data.name;
@@ -137,6 +184,8 @@ const createElByTemplate = (data) => {
 };
 
 
+
+
 const deleteEl = (evt) => {
   const el = evt.target.closest('.element');
   el.remove();
@@ -149,7 +198,7 @@ const likeEl = (evt) => {
 renderCards();
 
 
-
+*/
 
 const popupCloseButtonPhoto = popupPhoto.querySelector('.popup__close_type_photo');
 
@@ -189,16 +238,20 @@ popupCloseButtonAdd.addEventListener('click', closePopupAdd);
 const formElementAdd = document.querySelector('.popup__input-container_type_add');
 
 
-
+/*
 const title = document.querySelector('.element__title');
 const link = document.querySelector('.element__image');
+*/
+
 const titleInput = document.querySelector('.popup__input-item_type_title');
 const linkInput = document.querySelector('.popup__input-item_type_link');
 
 
 function handleFormSubmitAdd(evt) {
   evt.preventDefault();
-  container.prepend(createElByTemplate({ name: titleInput.value, link: linkInput.value }));
+  const card = new Card({ name: titleInput.value, link: linkInput.value }, '.cards');
+  const cardElement = card.generateCard();
+  document.querySelector('.elements').prepend(cardElement);
   formElementAdd.reset();
   evt.submitter.classList.add('popup__save_disabled')
   evt.submitter.disabled = true;
@@ -217,9 +270,9 @@ formElementAdd.addEventListener('submit', handleFormSubmitAdd);
 function escClosePopup(evt) {
   if (evt.key === 'Escape') {
     const openedPopup = document.querySelector('.popup_opened');
-    closePopup(openedPopup); 
+    closePopup(openedPopup);
   }
-} 
+}
 
 
 
