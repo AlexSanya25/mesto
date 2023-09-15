@@ -1,5 +1,9 @@
 import {FormValidator} from './FormValidator.js';
-import {Card} from './Card.js'
+import {Card} from './Card.js';
+import {Section} from './Section.js'
+
+
+
 
 
 const validationConfig = {
@@ -91,7 +95,6 @@ formElementProfile.addEventListener('submit', handleFormSubmitProfile);
 
 
 
-
 const initialCards = [
   {
     name: 'Архыз',
@@ -131,7 +134,7 @@ export const popupPhotoText = popupPhoto.querySelector('.popup__photo-text');
 
 
 
-
+/*
 // экземпляр класса card
 
 initialCards.forEach((item) => {
@@ -139,8 +142,37 @@ initialCards.forEach((item) => {
   const cardElement = card.generateCard();
 
   // Добавляем в DOM
-  document.querySelector('.elements').append(cardElement);
+  document.querySelector('.elements').append(cardElement); 
 });
+*/
+
+
+
+
+
+// экземпляр класса section
+
+const cardListSelector = '.elements';
+
+const cardList = new Section({
+  data: initialCards,
+  renderer: (item) => {
+    const card = new Card(item, '.cards');
+    const cardElement = card.generateCard();
+    cardList.addItem(cardElement);
+  }
+},
+cardListSelector
+);
+
+cardList.renderItems();
+
+
+
+
+
+
+
 
 
 
