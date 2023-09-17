@@ -1,5 +1,7 @@
-import {popupPhoto, popupPhotoImage, popupPhotoText} from './index.js'
+import {popupPhotoImage, popupPhotoText, popupEventsPhoto} from './index.js'
+/*
 import {openPopup} from './index.js'
+*/
 
 export class Card { 
   constructor(data, templateSelector) {
@@ -48,7 +50,7 @@ export class Card {
   }
 
   _openPopupPhoto() {
-    openPopup(popupPhoto);
+    popupEventsPhoto.open();
     popupPhotoText.textContent = this._name;
     popupPhotoImage.src = this._link;
     popupPhotoImage.alt = this._name;
