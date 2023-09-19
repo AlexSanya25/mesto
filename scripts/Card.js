@@ -1,10 +1,16 @@
+/*
+import {popupWithImage} from './index.js'
+*/
+/*
 import {popupPhotoImage, popupPhotoText, popupEventsPhoto} from './index.js'
+*/
 /*
 import {openPopup} from './index.js'
 */
 
 export class Card { 
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, handleCardClick) {
+    this._handleCardClick = handleCardClick;
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
@@ -33,9 +39,13 @@ export class Card {
   }
 
   _setEventListeners() {
+    
     const cardImage = this._element.querySelector('.element__image');
     cardImage.addEventListener('click', () => {
+      /*
       this._openPopupPhoto();
+      */
+      this._handleCardClick(this._name, this._link)
     });
 
     const deleteButton = this._element.querySelector('.element__delete');
@@ -48,14 +58,14 @@ export class Card {
       this._likeEl();
     });
   }
-
+/*
   _openPopupPhoto() {
     popupEventsPhoto.open();
     popupPhotoText.textContent = this._name;
     popupPhotoImage.src = this._link;
     popupPhotoImage.alt = this._name;
   }
-
+*/
   _deleteEl() {
     this._element.remove();
   }
