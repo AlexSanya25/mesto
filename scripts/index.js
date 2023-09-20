@@ -3,6 +3,7 @@ import { Card } from './Card.js';
 import { Section } from './Section.js';
 import { Popup } from './Popup.js';
 import { PopupWithImage } from './PopupWithImage.js';
+import { PopupWithForm } from './PopupWithForm.js';
 
 
 
@@ -118,8 +119,8 @@ const closePopupProfile = function () {
 }
 
 
-function handleFormSubmitProfile(evt) {
-  evt.preventDefault();
+function handleFormSubmitProfile() {
+
   const infoValue = infoInput.value;
   const jobValue = jobInput.value;
   info.textContent = infoValue;
@@ -130,8 +131,9 @@ function handleFormSubmitProfile(evt) {
 
 popupOpenButtonProfile.addEventListener('click', openPopupProfile);
 popupCloseButtonProfile.addEventListener('click', closePopupProfile);
+/*
 formElementProfile.addEventListener('submit', handleFormSubmitProfile);
-
+*/
 
 
 
@@ -152,22 +154,23 @@ const handleCardClick = (name, link) => {
 
 
 
-
-
+/*
 const popupSelector = '.popup';
+*/
+const popupProfileSelector = '.popup_profile';
 const popupAddSelector = '.popup_add';
 const popupPhotoSelector = '.popup_photo';
 
 
 // зкземпляр класса Popup
 
-const popupEventsProfile = new Popup(popupSelector);
+const popupEventsProfile = new Popup(popupProfileSelector);
 popupEventsProfile.setEventListeners();
 
 const popupEventsAdd = new Popup(popupAddSelector);
 popupEventsAdd.setEventListeners();
 
-export const popupEventsPhoto = new Popup(popupPhotoSelector);
+const popupEventsPhoto = new Popup(popupPhotoSelector);
 popupEventsPhoto.setEventListeners();
 
 
@@ -343,18 +346,18 @@ const titleInput = document.querySelector('.popup__input-item_type_title');
 const linkInput = document.querySelector('.popup__input-item_type_link');
 
 
-function handleFormSubmitAdd(evt) {
-  evt.preventDefault();
+function handleFormSubmitAdd() {
+ 
   const card = new Card({ name: titleInput.value, link: linkInput.value }, '.cards');
   const cardElement = card.generateCard();
   document.querySelector('.elements').prepend(cardElement);
-  formElementAdd.reset();
   validatorFormAdd.submitButtonDisabled();
+  formElementAdd.reset()
   closePopupAdd();
 }
-
+/*
 formElementAdd.addEventListener('submit', handleFormSubmitAdd);
-
+*/
 
 
 
@@ -387,3 +390,15 @@ popupProfile.addEventListener('click', overlayClosePopup);
 popupAdd.addEventListener('click', overlayClosePopup);
 popupPhoto.addEventListener('click', overlayClosePopup);
 */
+
+
+
+
+
+//зкземпляры класса PopupWithForm
+
+const popupWithFormProfile = new PopupWithForm(popupProfileSelector, handleFormSubmitProfile);
+popupWithFormProfile.setEventListeners();
+
+const popupWithFormAdd = new PopupWithForm(popupAddSelector, handleFormSubmitAdd);
+popupWithFormAdd.setEventListeners();
