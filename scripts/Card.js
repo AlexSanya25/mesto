@@ -45,7 +45,7 @@ export class Card {
       /*
       this._openPopupPhoto();
       */
-      this._handleCardClick(this._name, this._link);
+      this._handleCardClick(this._name, this._link); 
     });
 
     const deleteButton = this._element.querySelector('.element__delete');

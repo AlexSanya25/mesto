@@ -92,24 +92,36 @@ function closePopup(popup) {
 const info = document.querySelector('.profile__title');
 const job = document.querySelector('.profile__subtitle');
 */
+
+
+
+
 const openPopupProfile = function () {
   popupWithFormProfile.open();
   const getUsInf = userInfo.getUserInfo();
-  infoInput.value = getUsInf.info;
+  infoInput.value = getUsInf.name;
   jobInput.value = getUsInf.job;
+  
 
 }
 
 popupOpenButtonProfile.addEventListener('click', openPopupProfile);
 
 
-/*
+
+
+
+
 const closePopupProfile = function () {
-  
-  popupEventsProfile.close();
+  popupWithFormProfile.close()
 }
 
+popupCloseButtonProfile.addEventListener('click', closePopupProfile);
 
+
+
+
+/*
 function handleFormSubmitProfile () {
   
   const getUsInf = userInfo.getUserInfo();
@@ -125,9 +137,8 @@ function handleFormSubmitProfile () {
 */
 
 
-/*
-popupCloseButtonProfile.addEventListener('click', closePopupProfile);
-*/
+
+
 /*
 formElementProfile.addEventListener('submit', handleFormSubmitProfile);
 */
@@ -206,14 +217,14 @@ popupOpenButtonAdd.addEventListener('click', openPopupAdd);
 
 
 
-/*
+
 const popupCloseButtonAdd = popupAdd.querySelector('.popup__close_type_add');
 
 const closePopupAdd = function () {
-  popupEventsAdd.close();
+  popupWithFormAdd.close();
 }
 popupCloseButtonAdd.addEventListener('click', closePopupAdd);
-*/
+
 
 
 
@@ -270,24 +281,28 @@ popupWithFormProfile.setEventListeners();
 
 
 const popupWithFormProfile = new PopupWithForm({
-  popupSelector: '.popup_profile', handleFormSubmit: (data) => {
+  popupSelector: '.popup_profile',
+  handleFormSubmit: (data) => {
     userInfo.setUserInfo(data);
-    popupWithFormProfile.close()
+    popupWithFormProfile.close();
+   
   }
-  
+
 });
-
-
+popupWithFormProfile.setEventListeners();
+ 
 
 
 
 const popupWithFormAdd = new PopupWithForm({
-  popupSelector: '.popup_add',  handleFormSubmit: () => {
-    popupWithFormAdd.close()
+  popupSelector: '.popup_add',
+    handleFormSubmit: (data) => {
+    
+    popupWithFormAdd.close();
   }
   
 });
-
+popupWithFormAdd.setEventListeners()
 
 /*
 const popupWithFormAdd = new PopupWithForm('.popup_add', handleFormSubmitAdd);
@@ -299,8 +314,8 @@ popupWithFormAdd.setEventListeners();
 
 
 class UserInfo {
-  constructor({ infoSelector, jobSelector} ) {
-    this._infosel = document.querySelector(infoSelector); 
+  constructor({ infoSelector, jobSelector }) {
+    this._infosel = document.querySelector(infoSelector);
     this._jobsel = document.querySelector(jobSelector);
   }
 
@@ -308,14 +323,15 @@ class UserInfo {
 
   getUserInfo() {
     return {
-      info: this._infosel.textContent,
+      name: this._infosel.textContent,
       job: this._jobsel.textContent
     }
   }
 
-  setUserInfo({ info, job }) {
-    this._infosel.textContent = info;
-    this._jobsel.textContent = job;
+
+  setUserInfo(data) {
+    this._infosel.textContent = data.name;
+    this._jobsel.textContent = data.job;
     
   }
 
