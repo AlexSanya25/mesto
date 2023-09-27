@@ -9,7 +9,7 @@ import { UserInfo } from './components/UserInfo.js';
 import arkhyz from './images/arkhyz.jpg';
 import chelyabinsk from './images/chelyab.jpg';
 import ivanovo from './images/ivanovo.jpg';
-import kamchatka from './images/kamchatka.png';
+import kamchatka from './images/kamchatka.jpg';
 import kholmogor from './images/kholmogory.jpg';
 import baikal from './images/baikal.jpg';
 
