@@ -3,6 +3,7 @@ import { Card } from './Card.js';
 import { Section } from './Section.js';
 import { PopupWithImage } from './PopupWithImage.js';
 import { PopupWithForm } from './PopupWithForm.js';
+import { UserInfo } from './UserInfo.js';
 
 
 const validationConfig = {
@@ -101,7 +102,7 @@ const openPopupProfile = function () {
   const getUsInf = userInfo.getUserInfo();
   infoInput.value = getUsInf.name;
   jobInput.value = getUsInf.job;
-  
+
 
 }
 
@@ -170,7 +171,13 @@ popupEventsPhoto.setEventListeners();
 
 
 
-
+const createCard = (item) => {
+  const card = new Card(item, '.cards', handleCardClick);
+    const cardElement = card.generateCard();
+    cardList.addItem(cardElement);
+    
+    
+}
 
 // экземпляр класса section
 
@@ -179,10 +186,10 @@ const cardListSelector = '.elements';
 const cardList = new Section({
   data: initialCards,
   renderer: (item) => {
-    const card = new Card(item, '.cards', handleCardClick);
-    const cardElement = card.generateCard();
-    cardList.addItem(cardElement);
+    createCard(item);
+    
   }
+  
 },
   cardListSelector
 );
@@ -285,22 +292,23 @@ const popupWithFormProfile = new PopupWithForm({
   handleFormSubmit: (data) => {
     userInfo.setUserInfo(data);
     popupWithFormProfile.close();
-   
   }
 
 });
 popupWithFormProfile.setEventListeners();
- 
+
 
 
 
 const popupWithFormAdd = new PopupWithForm({
   popupSelector: '.popup_add',
-    handleFormSubmit: (data) => {
+  handleFormSubmit: (item) => {
+    createCard(item);
+    
     
     popupWithFormAdd.close();
   }
-  
+
 });
 popupWithFormAdd.setEventListeners()
 
@@ -313,29 +321,7 @@ popupWithFormAdd.setEventListeners();
 
 
 
-class UserInfo {
-  constructor({ infoSelector, jobSelector }) {
-    this._infosel = document.querySelector(infoSelector);
-    this._jobsel = document.querySelector(jobSelector);
-  }
 
-
-
-  getUserInfo() {
-    return {
-      name: this._infosel.textContent,
-      job: this._jobsel.textContent
-    }
-  }
-
-
-  setUserInfo(data) {
-    this._infosel.textContent = data.name;
-    this._jobsel.textContent = data.job;
-    
-  }
-
-}
 
 const userInfo = new UserInfo({ infoSelector: '.profile__title', jobSelector: '.profile__subtitle' });
 

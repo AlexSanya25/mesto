@@ -14,6 +14,7 @@ export class Card {
     this._link = data.link;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    
   }
 
   _getTemplate() {
@@ -29,11 +30,12 @@ export class Card {
 
   generateCard() {
     this._element = this._getTemplate();
+   
     this._setEventListeners();
 
     this._element.querySelector('.element__title').textContent = this._name;
     this._element.querySelector('.element__image').src = this._link;
-
+   
 
     return this._element;
   }
