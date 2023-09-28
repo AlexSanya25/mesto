@@ -1,17 +1,17 @@
-import './pages/index.css';
-import { FormValidator } from './components/FormValidator.js';
-import { Card } from './components/Card.js';
-import { Section } from './components/Section.js';
-import { PopupWithImage } from './components/PopupWithImage.js';
-import { PopupWithForm } from './components/PopupWithForm.js';
-import { UserInfo } from './components/UserInfo.js';
+import './index.css';
+import { FormValidator } from '../components/FormValidator.js';
+import { Card } from '../components/Card.js';
+import { Section } from '../components/Section.js';
+import { PopupWithImage } from '../components/PopupWithImage.js';
+import { PopupWithForm } from '../components/PopupWithForm.js';
+import { UserInfo } from '../components/UserInfo.js';
 
-import arkhyz from './images/arkhyz.jpg';
-import chelyabinsk from './images/chelyab.jpg';
-import ivanovo from './images/ivanovo.jpg';
-import kamchatka from './images/kamchatka.jpg';
-import kholmogor from './images/kholmogory.jpg';
-import baikal from './images/baikal.jpg';
+import arkhyz from '../images/arkhyz.jpg';
+import chelyabinsk from '../images/chelyab.jpg';
+import ivanovo from '../images/ivanovo.jpg';
+import kamchatka from '../images/kamchatka.jpg';
+import kholmogor from '../images/kholmogory.jpg';
+import baikal from '../images/baikal.jpg';
 
 const validationConfig = {
   formSelector: '.popup__input-container',
@@ -48,6 +48,8 @@ const initialCards = [
     link: baikal
   }
 ];
+
+
 
 
 const formProfile = document.querySelector('.popup__input-container_type_profile');
@@ -119,13 +121,13 @@ popupOpenButtonProfile.addEventListener('click', openPopupProfile);
 
 
 
-
+/*
 const closePopupProfile = function () {
   popupWithFormProfile.close()
 }
 
 popupCloseButtonProfile.addEventListener('click', closePopupProfile);
-
+*/
 
 
 
@@ -197,15 +199,15 @@ cardList.renderItems();
 
 
 // функция закрытия попапа Фото
-
+/*
 const popupCloseButtonPhoto = popupPhoto.querySelector('.popup__close_type_photo');
 
 const closePopupPhoto = function () {
   popupWithImage.close();
-  popupWithImage.setEventListeners();
 }
 
 popupCloseButtonPhoto.addEventListener('click', closePopupPhoto);
+*/
 
 
 
@@ -220,14 +222,15 @@ popupOpenButtonAdd.addEventListener('click', openPopupAdd);
 
 
 
-
+/*
 const popupCloseButtonAdd = popupAdd.querySelector('.popup__close_type_add');
 
 const closePopupAdd = function () {
   popupWithFormAdd.close();
 }
-popupCloseButtonAdd.addEventListener('click', closePopupAdd);
 
+popupCloseButtonAdd.addEventListener('click', closePopupAdd);
+*/
 
 
 
@@ -280,6 +283,7 @@ const popupWithFormProfile = new PopupWithForm({
   }
 
 });
+
 popupWithFormProfile.setEventListeners();
 
 
@@ -294,6 +298,7 @@ const popupWithFormAdd = new PopupWithForm({
   }
 
 });
+
 popupWithFormAdd.setEventListeners()
 
 
