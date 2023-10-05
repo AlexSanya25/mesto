@@ -5,6 +5,8 @@ import { Section } from '../components/Section.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
+import { Api } from '../components/Api.js';
+import { Popup } from '../components/Popup.js';
 
 import arkhyz from '../images/arkhyz.jpg';
 import chelyabinsk from '../images/chelyab.jpg';
@@ -12,6 +14,53 @@ import ivanovo from '../images/ivanovo.jpg';
 import kamchatka from '../images/kamchatka.jpg';
 import kholmogor from '../images/kholmogory.jpg';
 import baikal from '../images/baikal.jpg';
+
+
+
+
+const apiOptions = {
+  url: 'https://mesto.nomoreparties.co/v1/cohort-76',
+  headers: {
+    authorization: '83550a40-cebd-4081-b67b-cdf7223e3f37',
+    'Content-Type': 'application/json'
+  }
+}
+
+
+const api = new Api(apiOptions)
+
+api.getUserInfoApi()
+  .then((data) => {
+    userInfo.setUserInfo(data);
+  })
+
+api.getAllCards()
+  .then((data) => {
+    cardList.renderItems(data);
+  })
+
+api.getRedactProfile()
+  .then((data) => {
+    console.log(data);
+  })
+
+
+
+
+
+
+
+
+
+/*
+api.createCardApi()
+  .then((data) => {
+    console.log(data);
+    createCard(item);
+  })
+*/
+
+
 
 const validationConfig = {
   formSelector: '.popup__input-container',
@@ -110,7 +159,7 @@ const openPopupProfile = function () {
   popupWithFormProfile.open();
   const getUsInf = userInfo.getUserInfo();
   infoInput.value = getUsInf.name;
-  jobInput.value = getUsInf.job;
+  jobInput.value = getUsInf.about;
 
 
 }
@@ -169,11 +218,33 @@ popupWithImage.setEventListeners();
 
 
 const createCard = (item) => {
-  const card = new Card(item, '.cards', handleCardClick);
-    const cardElement = card.generateCard();
-    cardList.addItem(cardElement);
-    
-    
+  const card = new Card(item, '.cards', handleCardClick,
+    {
+      like: () => {
+        api.likeCardsApi(card.id)
+          .then((data) => {
+            card.likeEl();
+            card.likeCount(data);
+
+          })
+      }
+    },
+    {
+      dislike: () => {
+        api.likeCardsApiDelete(card.id)
+          .then(() => {
+            card.dislikeEl();
+
+          })
+      }
+    },
+    {
+      handleDeleteClick: () => {
+        popupWithDelete.open(card);
+      }
+    });
+  const cardElement = card.generateCard();
+  cardList.addItem(cardElement);
 }
 
 // экземпляр класса section
@@ -184,15 +255,15 @@ const cardList = new Section({
   data: initialCards,
   renderer: (item) => {
     createCard(item);
-    
+
   }
-  
+
 },
   cardListSelector
 );
-
+/*
 cardList.renderItems();
-
+*/
 
 
 
@@ -291,8 +362,11 @@ popupWithFormProfile.setEventListeners();
 
 const popupWithFormAdd = new PopupWithForm({
   popupSelector: '.popup_add',
-  handleFormSubmit: (item) => {
-    createCard(item);
+  handleFormSubmit: (data) => {
+    api.createCardApi(data)
+      .then((item) => {
+        createCard(item);
+      })
     validatorFormAdd.submitButtonDisabled();
     popupWithFormAdd.close();
   }
@@ -306,5 +380,47 @@ popupWithFormAdd.setEventListeners()
 
 const userInfo = new UserInfo({ infoSelector: '.profile__title', jobSelector: '.profile__subtitle' });
 
+
+
+
+
+class PopupWithDelete extends Popup {
+  constructor(popupSelector, { handleFormSubmit }) {
+    super(popupSelector);
+    this._handleFormSubmit = handleFormSubmit;
+    this._forms = this._popup.querySelector('.popup__input-container');
+  }
+
+  close() {
+    super.close();
+  }
+
+  open(card) {
+    super.open();
+    this._card = card;
+   
+  }
+
+  setEventListeners() {
+    super.setEventListeners();
+    this._forms.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+      this._handleFormSubmit(this._card);
+      console.log(this._card);
+    });
+
+  }
+}
+// экзмпляр класса попапа удаления карточки
+const popupWithDelete = new PopupWithDelete('.popup_delete',
+  {
+    handleFormSubmit: (card) => {
+      popupWithDelete.close();
+      card.deleteEl();
+      console.log(card);
+    }
+  }
+);
+popupWithDelete.setEventListeners();
 
 
