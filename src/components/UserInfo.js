@@ -17,7 +17,7 @@ export class UserInfo {
     setUserInfo(data) {
       this._infosel.textContent = data.name;
       this._jobsel.textContent = data.about;
-  
+      this.userId = data._id;
     }
   
   }

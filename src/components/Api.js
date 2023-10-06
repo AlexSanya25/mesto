@@ -109,4 +109,22 @@ export class Api {
             })
     }
 
+
+    cardDeleteApi(data) {
+        return fetch(`${this._url}/cards/${data}`, {
+            method: 'DELETE',
+            headers: this._headers
+        })
+            .then((res) => {
+                if (res.ok) {
+                    return res.json()
+                }
+                throw new error('Ошибка...')
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    
 }

@@ -1,4 +1,5 @@
 .element__delete {
+    display: block;
     background: none;
     width: 18px;
     height: 19px;

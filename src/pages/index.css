@@ -58,9 +58,6 @@
    flex-direction: column;
 }
 
-.popup_delete {
-
-}
 
 .popup__save_type_delete {
     width: 358px;
@@ -76,4 +73,14 @@
     padding-left: 36px;
     padding-right: 36px;
     padding-bottom: 36px;
+}
+
+.profile__avatar-hover {
+    background-image: url('../images/VectorAvatarMin.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.popup__save_type_avatar {
+    width: 358px;
 }

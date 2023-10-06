@@ -9,16 +9,22 @@ import {openPopup} from './index.js'
 */
 
 export class Card {
-  constructor(data, templateSelector, handleCardClick, { like }, { dislike },{ handleDeleteClick }) {
+  constructor(data, templateSelector, handleCardClick, { like }, { dislike },{ handleDeleteClick }, userId) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
     this._data = data;
     this._like = like;
-    this.id = data._id;
+    this._id = data._id;
+   
+    
     this._dislike = dislike;
     this._handleDeleteClick = handleDeleteClick;
+    this._owner = data.owner;
+    this._userId = userId;
+   
+
 
   }
 
@@ -28,7 +34,11 @@ export class Card {
       .content
       .querySelector('.element')
       .cloneNode(true);
-
+      const deleteButton = cardElement.querySelector('.element__delete');
+      if(this._owner._id !== this._userId) {
+        deleteButton.style.display = 'none';
+      }
+    
     return cardElement;
 
   }
@@ -43,7 +53,8 @@ export class Card {
     this._element.querySelector('.element__title').textContent = this._name;
     this._element.querySelector('.element__image').src = this._link;
 
-
+    
+   
     return this._element;
   }
 
@@ -84,19 +95,7 @@ export class Card {
     likeButton.classList.remove('element__like_active');
   }
 
-/*
-  counterLike() {
-    const likeCounter = document.querySelector('.element__like-text');
-    const currentCount = parseInt(likeCounter.textContent, 10);
-    likeCounter.textContent = currentCount + 1;
-  }
 
-  counterDislike() {
-    const likeCounter = document.querySelector('.element__like-text');
-    const currentCount = parseInt(likeCounter.textContent, 10);
-    likeCounter.textContent = currentCount - 1;
-  }
-*/
   likeCount(data) {
     this._likes = data.likes;
     this._count.textContent = this._likes.length;

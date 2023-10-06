@@ -6,6 +6,7 @@ import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { Api } from '../components/Api.js';
+import { PopupWithDelete } from '../components/PopupDeleteCard.js';
 import { Popup } from '../components/Popup.js';
 
 import arkhyz from '../images/arkhyz.jpg';
@@ -29,9 +30,21 @@ const apiOptions = {
 
 const api = new Api(apiOptions)
 
+Promise.all([api.getUserInfoApi(), api.getAllCards()])
+.then(([data, cards]) => {
+  userInfo.setUserInfo(data);
+  cardList.renderItems(cards);
+})
+.catch((error) => {
+  console.log(error);
+})
+
+
+/*
 api.getUserInfoApi()
   .then((data) => {
     userInfo.setUserInfo(data);
+    console.log(data._id);
   })
 
 api.getAllCards()
@@ -39,6 +52,7 @@ api.getAllCards()
     cardList.renderItems(data);
   })
 
+*/
 api.getRedactProfile()
   .then((data) => {
     console.log(data);
@@ -221,7 +235,7 @@ const createCard = (item) => {
   const card = new Card(item, '.cards', handleCardClick,
     {
       like: () => {
-        api.likeCardsApi(card.id)
+        api.likeCardsApi(card._id)
           .then((data) => {
             card.likeEl();
             card.likeCount(data);
@@ -231,7 +245,7 @@ const createCard = (item) => {
     },
     {
       dislike: () => {
-        api.likeCardsApiDelete(card.id)
+        api.likeCardsApiDelete(card._id)
           .then(() => {
             card.dislikeEl();
 
@@ -242,7 +256,13 @@ const createCard = (item) => {
       handleDeleteClick: () => {
         popupWithDelete.open(card);
       }
-    });
+    },
+    userInfo.userId
+    
+    
+
+
+  );
   const cardElement = card.generateCard();
   cardList.addItem(cardElement);
 }
@@ -376,51 +396,43 @@ const popupWithFormAdd = new PopupWithForm({
 popupWithFormAdd.setEventListeners()
 
 
+const popupWithFormAvatar = new PopupWithForm({
+  popupSelector: '.popup_avatar',
+  handleFormSubmit: () => {
+    popupWithFormAvatar.close();
+  }
+
+});
+
+popupWithFormAvatar.setEventListeners()
+
+const popupOpenButtonAvatar = document.querySelector('.profile__avatar');
+
+const openPopupAvatar = function () {
+  popupWithFormAvatar.open();
+}
+
+popupOpenButtonAvatar.addEventListener('click', openPopupAvatar);
+
+
+
+
+
 // зкземпляр класса userInfo
 
 const userInfo = new UserInfo({ infoSelector: '.profile__title', jobSelector: '.profile__subtitle' });
 
-
-
-
-
-class PopupWithDelete extends Popup {
-  constructor(popupSelector, { handleFormSubmit }) {
-    super(popupSelector);
-    this._handleFormSubmit = handleFormSubmit;
-    this._forms = this._popup.querySelector('.popup__input-container');
-  }
-
-  close() {
-    super.close();
-  }
-
-  open(card) {
-    super.open();
-    this._card = card;
-   
-  }
-
-  setEventListeners() {
-    super.setEventListeners();
-    this._forms.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-      this._handleFormSubmit(this._card);
-      console.log(this._card);
-    });
-
-  }
-}
 // экзмпляр класса попапа удаления карточки
 const popupWithDelete = new PopupWithDelete('.popup_delete',
   {
     handleFormSubmit: (card) => {
-      popupWithDelete.close();
-      card.deleteEl();
-      console.log(card);
+      api.cardDeleteApi(card._id)
+      .then(() => {
+        popupWithDelete.close();
+        card.deleteEl();
+      })
     }
   }
 );
 popupWithDelete.setEventListeners();
-
 

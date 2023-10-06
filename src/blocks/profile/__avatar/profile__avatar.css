@@ -6,14 +6,13 @@
     object-fit: cover;
     object-position: center;
     aspect-ratio: 1/1;
+    
 }
 
 
 .profile__avatar:hover {
     opacity: 0.2;
     cursor: pointer;
-    background-image: url('../../../images/VectorAvatarMin.svg');
-    
 }
 
 @media screen and (max-width: 680px) {
@@ -21,4 +20,3 @@
         justify-self: center;
     }
 }
-
