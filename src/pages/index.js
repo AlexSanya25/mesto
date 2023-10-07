@@ -7,7 +7,7 @@ import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { Api } from '../components/Api.js';
 import { PopupWithDelete } from '../components/PopupDeleteCard.js';
-import { Popup } from '../components/Popup.js';
+
 
 import arkhyz from '../images/arkhyz.jpg';
 import chelyabinsk from '../images/chelyab.jpg';
@@ -31,13 +31,14 @@ const apiOptions = {
 const api = new Api(apiOptions)
 
 Promise.all([api.getUserInfoApi(), api.getAllCards()])
-.then(([data, cards]) => {
-  userInfo.setUserInfo(data);
-  cardList.renderItems(cards);
-})
-.catch((error) => {
-  console.log(error);
-})
+  .then(([data, cards]) => {
+    userInfo.setUserInfo(data);
+    userInfo.avatarUser(data);
+    cardList.renderItems(cards);
+  })
+  .catch((error) => {
+    console.log(error);
+  })
 
 
 /*
@@ -53,18 +54,6 @@ api.getAllCards()
   })
 
 */
-api.getRedactProfile()
-  .then((data) => {
-    console.log(data);
-  })
-
-
-
-
-
-
-
-
 
 /*
 api.createCardApi()
@@ -117,7 +106,7 @@ const initialCards = [
 
 const formProfile = document.querySelector('.popup__input-container_type_profile');
 const formAdd = document.querySelector('.popup__input-container_type_add');
-
+const formAvatar = document.querySelector('.popup__input-container_type_avatar');
 
 // зкземпляр формы профиля
 
@@ -129,6 +118,8 @@ validatorFormProfile.enableValidation();
 const validatorFormAdd = new FormValidator(validationConfig, formAdd);
 validatorFormAdd.enableValidation();
 
+const validatorFormAvatar = new FormValidator(validationConfig, formAvatar);
+validatorFormAvatar.enableValidation();
 
 
 
@@ -246,9 +237,9 @@ const createCard = (item) => {
     {
       dislike: () => {
         api.likeCardsApiDelete(card._id)
-          .then(() => {
+          .then((data) => {
             card.dislikeEl();
-
+            card.likeCount(data);
           })
       }
     },
@@ -258,8 +249,8 @@ const createCard = (item) => {
       }
     },
     userInfo.userId
-    
-    
+
+
 
 
   );
@@ -369,8 +360,16 @@ formElementAdd.addEventListener('submit', handleFormSubmitAdd);
 const popupWithFormProfile = new PopupWithForm({
   popupSelector: '.popup_profile',
   handleFormSubmit: (data) => {
-    userInfo.setUserInfo(data);
-    popupWithFormProfile.close();
+    api.getRedactProfile(data)
+      .then((data) => {
+        userInfo.setUserInfo(data);
+        popupWithFormProfile.close();
+        popupWithFormProfile.removeLoading()
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    popupWithFormProfile.addLoading()
   }
 
 });
@@ -383,12 +382,18 @@ popupWithFormProfile.setEventListeners();
 const popupWithFormAdd = new PopupWithForm({
   popupSelector: '.popup_add',
   handleFormSubmit: (data) => {
+
     api.createCardApi(data)
       .then((item) => {
         createCard(item);
+        popupWithFormAdd.close();
+        popupWithFormAdd.removeLoading()
       })
+      .catch((error) => {
+        console.log(error);
+      })
+    popupWithFormAdd.addLoading()
     validatorFormAdd.submitButtonDisabled();
-    popupWithFormAdd.close();
   }
 
 });
@@ -398,8 +403,19 @@ popupWithFormAdd.setEventListeners()
 
 const popupWithFormAvatar = new PopupWithForm({
   popupSelector: '.popup_avatar',
-  handleFormSubmit: () => {
-    popupWithFormAvatar.close();
+  handleFormSubmit: (data) => {
+    api.avatarApi(data)
+      .then((data) => {
+        userInfo.avatarUser(data);
+        popupWithFormAvatar.close();
+        popupWithFormAvatar.removeLoading()
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      popupWithFormAvatar.addLoading()
+    validatorFormAvatar.submitButtonDisabled();
+
   }
 
 });
@@ -420,17 +436,17 @@ popupOpenButtonAvatar.addEventListener('click', openPopupAvatar);
 
 // зкземпляр класса userInfo
 
-const userInfo = new UserInfo({ infoSelector: '.profile__title', jobSelector: '.profile__subtitle' });
+const userInfo = new UserInfo({ infoSelector: '.profile__title', jobSelector: '.profile__subtitle', avatarSelector: '.profile__avatar' });
 
 // экзмпляр класса попапа удаления карточки
 const popupWithDelete = new PopupWithDelete('.popup_delete',
   {
     handleFormSubmit: (card) => {
       api.cardDeleteApi(card._id)
-      .then(() => {
-        popupWithDelete.close();
-        card.deleteEl();
-      })
+        .then(() => {
+          popupWithDelete.close();
+          card.deleteEl();
+        })
     }
   }
 );

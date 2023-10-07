@@ -9,7 +9,7 @@ import {openPopup} from './index.js'
 */
 
 export class Card {
-  constructor(data, templateSelector, handleCardClick, { like }, { dislike },{ handleDeleteClick }, userId) {
+  constructor(data, templateSelector, handleCardClick, { like }, { dislike }, { handleDeleteClick }, userId) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
@@ -17,13 +17,14 @@ export class Card {
     this._data = data;
     this._like = like;
     this._id = data._id;
-   
-    
+    this._likes = data.likes;
+
+
     this._dislike = dislike;
     this._handleDeleteClick = handleDeleteClick;
     this._owner = data.owner;
     this._userId = userId;
-   
+
 
 
   }
@@ -34,14 +35,21 @@ export class Card {
       .content
       .querySelector('.element')
       .cloneNode(true);
-      const deleteButton = cardElement.querySelector('.element__delete');
-      if(this._owner._id !== this._userId) {
-        deleteButton.style.display = 'none';
-      }
-    
+    const deleteButton = cardElement.querySelector('.element__delete');
+    if (this._owner._id !== this._userId) {
+      deleteButton.style.display = 'none';
+    }
+
+
+
+
+
     return cardElement;
 
   }
+
+
+
 
   generateCard() {
 
@@ -53,8 +61,14 @@ export class Card {
     this._element.querySelector('.element__title').textContent = this._name;
     this._element.querySelector('.element__image').src = this._link;
 
-    
-   
+    const likeButton = this._element.querySelector('.element__like');
+    this._likes.forEach(like => {
+      if (like._id === this._userId) {
+        likeButton.classList.add('element__like_active');
+      }
+    })
+
+
     return this._element;
   }
 

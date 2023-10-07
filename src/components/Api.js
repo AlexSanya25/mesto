@@ -36,13 +36,13 @@ export class Api {
             })
     }
 
-    getRedactProfile() {
+    getRedactProfile(data) {
         return fetch(`${this._url}/users/me`, {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
-                name: 'Alexandr Gavrik',
-                about: 'frontend dev'
+                name: data.name,
+                about: data.about
             })
         })
             .then((res) => {
@@ -126,5 +126,24 @@ export class Api {
             })
     }
 
+
+    avatarApi(data) {
+        return fetch(`${this._url}/users/me/avatar`, {
+            method: 'PATCH',
+            headers: this._headers,
+            body: JSON.stringify({
+                avatar: data.avatar 
+            })
+        })
+            .then((res) => {
+                if (res.ok) {
+                    return res.json()
+                }
+                throw new error('Ошибка...')
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
     
 }
