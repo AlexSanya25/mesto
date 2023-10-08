@@ -230,7 +230,9 @@ const createCard = (item) => {
           .then((data) => {
             card.likeEl();
             card.likeCount(data);
-
+          })
+          .catch((error) => {
+            console.log(error);
           })
       }
     },
@@ -241,6 +243,10 @@ const createCard = (item) => {
             card.dislikeEl();
             card.likeCount(data);
           })
+          .catch((error) => {
+            console.log(error);
+          })
+
       }
     },
     {
@@ -364,11 +370,13 @@ const popupWithFormProfile = new PopupWithForm({
       .then((data) => {
         userInfo.setUserInfo(data);
         popupWithFormProfile.close();
-        popupWithFormProfile.removeLoading()
       })
       .catch((error) => {
         console.log(error);
       })
+      .finally(() => {
+        popupWithFormProfile.removeLoading()
+      });
     popupWithFormProfile.addLoading()
   }
 
@@ -387,11 +395,13 @@ const popupWithFormAdd = new PopupWithForm({
       .then((item) => {
         createCard(item);
         popupWithFormAdd.close();
-        popupWithFormAdd.removeLoading()
       })
       .catch((error) => {
         console.log(error);
       })
+      .finally(() => {
+        popupWithFormAdd.removeLoading()
+      });
     popupWithFormAdd.addLoading()
     validatorFormAdd.submitButtonDisabled();
   }
@@ -408,12 +418,14 @@ const popupWithFormAvatar = new PopupWithForm({
       .then((data) => {
         userInfo.avatarUser(data);
         popupWithFormAvatar.close();
-        popupWithFormAvatar.removeLoading()
       })
       .catch((error) => {
         console.log(error);
       })
-      popupWithFormAvatar.addLoading()
+      .finally(() => {
+        popupWithFormAvatar.removeLoading()
+      });
+    popupWithFormAvatar.addLoading()
     validatorFormAvatar.submitButtonDisabled();
 
   }
@@ -446,6 +458,9 @@ const popupWithDelete = new PopupWithDelete('.popup_delete',
         .then(() => {
           popupWithDelete.close();
           card.deleteEl();
+        })
+        .catch((error) => {
+          console.log(error);
         })
     }
   }
